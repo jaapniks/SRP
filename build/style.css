@@ -1,0 +1,659 @@
+html {
+    box-sizing: border-box;
+    overflow: hidden;
+    -webkit-overflow-scrolling: hidden;
+}
+* {
+    box-sizing: inherit;
+    /*
+    Prevent the browser rendering faux bold/italics for fonts without appropriate variants.
+    See: https://drafts.csswg.org/css-fonts-3/#propdef-font-synthesis
+    */
+    font-synthesis: none;
+}
+body {
+    margin: 0px;
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+    -webkit-overflow-scrolling: hidden;
+    position: fixed;
+}
+
+body,
+input,
+select,
+button {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif,
+        "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    font-size: 11px;
+}
+
+div,
+body {
+    outline: none;
+}
+
+body input.component:focus {
+    border-width: 10 !important;
+    border-color: #85f !important;
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+.fadeIn {
+    animation-name: fadeIn;
+    animation-duration: 0.1s;
+}
+
+.fadeInLong {
+    animation-name: fadeIn;
+    animation-duration: 0.3s;
+}
+
+@keyframes fadeInDelay {
+    0% {
+        opacity: 0;
+    }
+    66% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+.delayedFadeIn {
+    animation-name: fadeInDelay;
+    animation-duration: 1.5s;
+}
+
+/* Font CSS reset. Must also be used by the exporter (serialization.ts) */
+.DraftEditor-root {
+    font: normal normal normal 16px / normal system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
+        Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+}
+
+.DraftEditor-editorContainer {
+    border-left: 1px;
+}
+
+.textEditor--hasAutoSize .DraftEditor-editorContainer [data-text] {
+    white-space: pre;
+}
+
+.svgShape svg {
+    width: 100%;
+    height: 100%;
+}
+
+.svgContainer svg {
+    display: block;
+}
+
+.rotate-top-center {
+    cursor: -webkit-image-set(
+                url(../images/cursors/rotate-top-center.png) 1x,
+                url(../images/cursors/rotate-top-center@2x.png) 2x
+            )
+            12 12,
+        default;
+}
+
+.rotate-top-right {
+    cursor: -webkit-image-set(
+                url(../images/cursors/rotate-top-right.png) 1x,
+                url(../images/cursors/rotate-top-right@2x.png) 2x
+            )
+            12 12,
+        default;
+}
+
+.rotate-mid-right {
+    cursor: -webkit-image-set(
+                url(../images/cursors/rotate-mid-right.png) 1x,
+                url(../images/cursors/rotate-mid-right@2x.png) 2x
+            )
+            12 12,
+        default;
+}
+
+.rotate-bottom-right {
+    cursor: -webkit-image-set(
+                url(../images/cursors/rotate-bottom-right.png) 1x,
+                url(../images/cursors/rotate-bottom-right@2x.png) 2x
+            )
+            12 12,
+        default;
+}
+
+.rotate-bottom-center {
+    cursor: -webkit-image-set(
+                url(../images/cursors/rotate-bottom-center.png) 1x,
+                url(../images/cursors/rotate-bottom-center@2x.png) 2x
+            )
+            12 12,
+        default;
+}
+
+.rotate-bottom-left {
+    cursor: -webkit-image-set(
+                url(../images/cursors/rotate-bottom-left.png) 1x,
+                url(../images/cursors/rotate-bottom-left@2x.png) 2x
+            )
+            12 12,
+        default;
+}
+
+.rotate-mid-left {
+    cursor: -webkit-image-set(
+                url(../images/cursors/rotate-mid-left.png) 1x,
+                url(../images/cursors/rotate-mid-left@2x.png) 2x
+            )
+            12 12,
+        default;
+}
+
+.rotate-top-left {
+    cursor: -webkit-image-set(
+                url(../images/cursors/rotate-top-left.png) 1x,
+                url(../images/cursors/rotate-top-left@2x.png) 2x
+            )
+            12 12,
+        default;
+}
+
+.flash::before {
+    content: "";
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    border-radius: 2px;
+    position: absolute;
+    animation-name: flash;
+    animation-duration: 400ms;
+    animation-iteration-count: 1;
+    animation-timing-function: ease-in-out;
+}
+
+@keyframes flash {
+    0% {
+        box-shadow: unset;
+        background-color: transparent;
+    }
+    50% {
+        box-shadow: inset 0px 0px 0px 1px #0099ff, 0px 0px 5px 0px #0099ff;
+        background-color: rgba(251, 251, 251, 0.5);
+    }
+    100% {
+        box-shadow: unset;
+        background-color: transparent;
+    }
+}
+
+.spinner {
+    animation-name: spin;
+    animation-duration: 800ms;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+}
+
+@keyframes spin {
+    100% {
+        transform: rotate(360deg) translateZ(0);
+    }
+}
+
+.framer_popup_menu {
+    animation-name: popup;
+    animation-duration: 100ms;
+    animation-timing-function: cubic-bezier(0.2, 0, 0, 1);
+}
+
+@keyframes popup {
+    0% {
+        transform: scale(0);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+.hint {
+    animation-name: showHint;
+    animation-duration: 300ms;
+    animation-timing-function: ease-out;
+}
+
+@keyframes showHint {
+    0% {
+        transform: translate3d(0px, 60px, 0);
+        opacity: 0;
+    }
+    100% {
+        transform: translate3d(0, 0, 0);
+        opacity: 1;
+    }
+}
+
+.fadeInTooltip {
+    animation-name: fadeInTooltip;
+    animation-duration: 1000ms;
+    animation-timing-function: ease-out;
+}
+
+@keyframes fadeInTooltip {
+    0% {
+        opacity: 0;
+    }
+    90% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+/* Scrollbar */
+div.monaco-editor .slider {
+    border-radius: 3px;
+}
+div.monaco-editor.vs .slider {
+    background-color: rgba(0, 0, 0, 0.1) !important;
+}
+div.monaco-editor.vs .slider:hover {
+    background-color: rgba(0, 0, 0, 0.2) !important;
+}
+div.monaco-editor .scrollbar.vertical .slider {
+    width: 6px !important;
+}
+div.monaco-editor .scrollbar.vertical {
+    margin: 8px;
+    height: calc(100% - 16px) !important;
+    overflow: hidden;
+    border-radius: 3px;
+    display: inline-block;
+}
+div.monaco-editor .scrollbar.horizontal {
+    margin-bottom: 8px;
+}
+div.monaco-editor .suggest-widget .scrollbar.vertical,
+div.monaco-editor .monaco-editor-hover .scrollbar.vertical {
+    margin: 4px;
+    width: 6px !important;
+    height: calc(100% - 8px) !important;
+}
+div.monaco-editor .decorationsOverviewRuler {
+    visibility: hidden;
+}
+
+/* Brackets in selection state */
+div.monaco-editor .bracket-match {
+    border: none;
+}
+
+/* Indent Lines */
+div.monaco-editor.vs .lines-content .cigr {
+    box-shadow: 1px 0 0 0 rgba(253, 253, 253, 0) inset;
+}
+div.monaco-editor.vs-dark .lines-content .cigr {
+    box-shadow: 1px 0 0 0 rgba(24, 24, 24, 0) inset;
+}
+
+/* Errors */
+div.monaco-editor .runtimeErrorIcon {
+    background-color: #f46;
+}
+div.monaco-editor .runtimeErrorLine {
+    background-color: rgba(255, 68, 102, 0.1);
+}
+div.monaco-editor .runtimeErrorLine ~ .line-numbers {
+    color: #f46;
+}
+div.monaco-editor .squiggly-error {
+    border-bottom: 2px solid #f46;
+    background: none !important;
+}
+
+/* Links */
+div.monaco-editor .goto-definition-link {
+    color: #09f !important;
+    text-decoration: none;
+}
+div.monaco-editor .detected-link {
+    text-decoration: none;
+}
+div.monaco-editor .detected-link-active {
+    color: #09f !important;
+    text-decoration: none;
+}
+
+/* Popovers */
+div.monaco-editor .monaco-editor-hover,
+div.monaco-editor .suggest-widget .tree,
+div.monaco-editor .suggest-widget .details,
+div.monaco-editor .parameter-hints-widget {
+    border-radius: 6px;
+    -webkit-backdrop-filter: blur(20px);
+    overflow: hidden;
+}
+div.monaco-editor.vs-dark .monaco-editor-hover,
+div.monaco-editor.vs-dark .suggest-widget .tree,
+div.monaco-editor.vs-dark .suggest-widget .details,
+div.monaco-editor.vs-dark .parameter-hints-widget {
+    background: #212121 !important;
+    border-color: rgba(255, 255, 255, 0.06) !important;
+}
+div.monaco-editor.vs .monaco-editor-hover,
+div.monaco-editor.vs .suggest-widget .tree,
+div.monaco-editor.vs .suggest-widget .details,
+div.monaco-editor.vs .parameter-hints-widget {
+    background: #f8f8f8 !important;
+    border-color: rgba(0, 0, 0, 0.04) !important;
+}
+@supports (-webkit-backdrop-filter: blur(20px)) {
+    div.monaco-editor.vs-dark .monaco-editor-hover,
+    div.monaco-editor.vs-dark .suggest-widget .tree,
+    div.monaco-editor.vs-dark .suggest-widget .details,
+    div.monaco-editor.vs-dark .parameter-hints-widget {
+        background: rgba(255, 255, 255, 0.04) !important;
+    }
+    div.monaco-editor.vs .monaco-editor-hover,
+    div.monaco-editor.vs .suggest-widget .tree,
+    div.monaco-editor.vs .suggest-widget .details,
+    div.monaco-editor.vs .parameter-hints-widget {
+        background: rgba(0, 0, 0, 0.02) !important;
+    }
+}
+div.monaco-editor .monaco-editor-hover .hover-row {
+    padding: 6px 10px;
+}
+div.monaco-editor.vs .monaco-editor-hover p,
+div.monaco-editor.vs .monaco-editor-hover li,
+div.monaco-editor.vs .parameter-hints-widget {
+    color: #666;
+}
+div.monaco-editor.vs-dark .monaco-editor-hover p,
+div.monaco-editor.vs-dark .monaco-editor-hover li,
+div.monaco-editor.vs-dark .parameter-hints-widget {
+    color: #999;
+}
+
+/* Hide inner shadows */
+div.monaco-editor .shadow {
+    visibility: hidden;
+}
+
+/* Auto-complete Icons */
+div.monaco-editor .suggest-widget .monaco-list .monaco-list-row .suggest-icon:before {
+    width: 20px !important;
+    height: 20px !important;
+    padding: 0 !important;
+    margin: 0 4px 0 2px !important;
+}
+
+/* Dark Overrides */
+div.monaco-editor .suggest-widget .monaco-list .monaco-list-row .suggest-icon.constructor:before,
+div.monaco-editor .suggest-widget .monaco-list .monaco-list-row .suggest-icon.function:before,
+div.monaco-editor .suggest-widget .monaco-list .monaco-list-row .suggest-icon.method:before {
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"><path d="M8 3L3.5 5.5v5L8 13l4.5-2.5v-5z" fill="rgba(187, 136, 255, 1.00)"/><path d="M8 3L3.5 5.5 8 8l4.5-2.5z" fill="#FFF" opacity=".6"/></svg>') !important;
+}
+div.monaco-editor .suggest-widget .monaco-list .monaco-list-row .suggest-icon.variable:before,
+div.monaco-editor .suggest-widget .monaco-list .monaco-list-row .suggest-icon.field::before {
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"><path d="M8 3L3.5 5.5v5L8 13l4.5-2.5v-5z" fill="rgba(1, 187, 255, 1.00)"/><path d="M8 3L3.5 5.5 8 8l4.5-2.5z" fill="#FFF" opacity=".6"/></svg>') !important;
+}
+div.monaco-editor .suggest-widget .monaco-list .monaco-list-row .suggest-icon.text::before {
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"><path d="M6.5 4l4.5 8H2z" fill="rgba(1, 187, 255, 1.00)"/><path d="M6.5 4h3.625a2 2 0 1 1 0 4H12a2 2 0 1 1 0 4H6.5z" fill="rgba(1, 187, 255, 1.00)" opacity=".5"/></svg>') !important;
+}
+div.monaco-editor .suggest-widget .monaco-list .monaco-list-row .suggest-icon.snippet::before {
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"><path d="M4 8h8v4H4z" fill="rgba(1, 187, 255, 1.00)" opacity=".4"/><path d="M4 4h8v4H4z" fill="rgba(1, 187, 255, 1.00)"/><path d="M4 4h8v8H4z" fill="rgba(187, 136, 255, 1.00)"/><path d="M4 8h8v4H4z" fill="#FFF" opacity=".6"/></svg>') !important;
+}
+div.monaco-editor .suggest-widget .monaco-list .monaco-list-row .suggest-icon.module:before {
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"><path d="M7.879 3.05v9.9L2.929 8z" fill="rgba(187, 187, 187, 1.00)"/><path d="M7.929 3.05v9.9L12.879 8z" fill="rgba(187, 187, 187, 1.00)" opacity=".5"/></svg>') !important;
+}
+div.monaco-editor .suggest-widget .monaco-list .monaco-list-row .suggest-icon.file:before {
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"><path d="M8 3a5 5 0 1 1-.001 10.001A5 5 0 0 1 8 3zM6 8a2 2 0 1 0 3.999.001A2 2 0 0 0 6 8z" fill="rgba(1, 187, 255, 1.00)"/></svg>') !important;
+}
+div.monaco-editor .suggest-widget .monaco-list .monaco-list-row .suggest-icon.interface::before {
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"><path d="M8 3a5 5 0 1 1-.001 10.001A5 5 0 0 1 8 3zM6 8a2 2 0 1 0 3.999.001A2 2 0 0 0 6 8z" fill="rgba(1, 187, 255, 1.00)"/></svg>') !important;
+}
+div.monaco-editor .suggest-widget .monaco-list .monaco-list-row .suggest-icon.unit::before {
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"><path d="M2.5 5h11v6h-11z" fill="rgba(255, 204, 102, 1.00)"/><path d="M4.5 5h1v3h-1zm6 0h1v3h-1zm-3 0h1v3h-1z" fill="hsl(0, 0%, 0%)" opacity=".4"/></svg>') !important;
+}
+div.monaco-editor .suggest-widget .monaco-list .monaco-list-row .suggest-icon.property::before {
+    background-image: url('data:image/svg+xml;utf8,<svg height="16" width="16" xmlns="http://www.w3.org/2000/svg"><path d="m13.355 6.141-2.5 4.33-3.431-.057-2.043 3.539-2.598-1.5 2.043-3.539-1.765-2.943 2.5-4.33 3.432.056-2.21 3.827 2.598 1.5 2.21-3.827z" fill="#bbb"/></svg>') !important;
+}
+div.monaco-editor .suggest-widget .monaco-list .monaco-list-row .suggest-icon.class::before {
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"><path d="M7.879 3.05L12.829 8l-4.95 4.95L2.929 8z" fill="rgba(255, 204, 102, 1.00)"/></svg>') !important;
+}
+div.monaco-editor .suggest-widget .monaco-list .monaco-list-row .suggest-icon.color::before {
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"><path d="M8 3a2 2 0 1 1 .001 3.999A2 2 0 0 1 8 3z" fill="rgba(1, 187, 255, 1.00)"/><path d="M5 8a2 2 0 1 1 .001 3.999A2 2 0 0 1 5 8z" fill="rgba(255, 204, 102, 1.00)"/><path d="M11 8a2 2 0 1 1 .001 3.999A2 2 0 0 1 11 8z" fill="rgba(187, 136, 255, 1.00)"/></svg>') !important;
+}
+div.monaco-editor .suggest-widget .monaco-list .monaco-list-row .suggest-icon.value:before,
+div.monaco-editor .suggest-widget .monaco-list .monaco-list-row .suggest-icon.enum::before {
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"><path d="M6 3h7v7H6z" fill="rgba(1, 187, 255, 1.00)" opacity=".4"/><path d="M3 6h7v7H3z" fill="rgba(1, 187, 255, 1.00)"/></svg>') !important;
+}
+div.monaco-editor.vs-dark .suggest-widget .monaco-list .monaco-list-row .suggest-icon.keyword:before,
+div.monaco-editor.vs-dark .suggest-widget .monaco-list .monaco-list-row .suggest-icon.constant::before {
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"><path d="M3 9h7v3H3z" fill="rgba(255, 204, 102, 1.00)" opacity=".4"/><path d="M3 4h10v3H3z" fill="rgba(255, 204, 102, 1.00)"/></svg>') !important;
+}
+/* Optimize keyword icon for light mode */
+div.monaco-editor.vs .suggest-widget .monaco-list .monaco-list-row .suggest-icon.keyword:before,
+div.monaco-editor.vs .suggest-widget .monaco-list .monaco-list-row .suggest-icon.constant::before {
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"><path d="M3 9h7v3H3z" fill="rgba(255, 204, 102, 1.00)" opacity=".7"/><path d="M3 4h10v3H3z" fill="rgba(255, 204, 102, 1.00)"/></svg>') !important;
+}
+
+/* Read More Icon */
+div.monaco-editor.vs-dark .suggest-widget .monaco-list .monaco-list-row > .contents > .main > .readMore {
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"><path d="M7 2a5 5 0 1 1-.001 10.001A5 5 0 0 1 7 2zm-1 9h2V6H6zm0-7a1 1 0 1 0 2 0 1 1 0 0 0-2 0z" fill="#7B7B7B"/></svg>') !important;
+}
+div.monaco-editor.vs .suggest-widget .monaco-list .monaco-list-row > .contents > .main > .readMore {
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"><path d="M7 2a5 5 0 1 1-.001 10.001A5 5 0 0 1 7 2zm-1 9h2V6H6zm0-7a1 1 0 1 0 2 0 1 1 0 0 0-2 0z" fill="#9A9A9A"/></svg>') !important;
+}
+
+/* Find & Replace */
+div.monaco-editor .find-widget {
+    border-radius: 5px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1), 0 4px 8px rgba(0, 0, 0, 0.05);
+    right: 0 !important;
+}
+div.monaco-editor .find-widget.visible {
+    /* Needs to happen when visible only */
+    margin-top: 10px;
+}
+div.monaco-editor .find-widget {
+    /* Both when visible and hidden */
+    margin-right: 8px;
+}
+div.monaco-editor.vs .find-widget {
+    background-color: #fff;
+}
+div.monaco-editor.vs-dark .find-widget .input {
+    color: #fff !important;
+}
+div.monaco-editor .find-widget .monaco-sash {
+    opacity: 0;
+}
+div.monaco-editor .find-widget .monaco-inputbox,
+div.monaco-editor .find-widget .monaco-inputbox .input {
+    border-radius: 3px;
+}
+div.monaco-editor.vs .find-widget .monaco-inputbox {
+    border: 1px solid #eee;
+}
+div.monaco-editor.vs-dark .find-widget .monaco-inputbox {
+    border: 1px solid #181818;
+}
+div.monaco-editor.vs .find-widget .matchesCount {
+    color: #09f !important;
+}
+div.monaco-editor.vs-dark .find-widget .matchesCount {
+    color: #fff !important;
+}
+
+/* Highlighted line when finding & replacing */
+div.monaco-editor.vs .rangeHighlight {
+    background-color: #fafafa;
+}
+div.monaco-editor.vs-dark .rangeHighlight {
+    background-color: #151515;
+}
+
+/* Find & Replace Buttons */
+div.monaco-editor .find-widget .replace,
+div.monaco-editor .find-widget .replace-all {
+    background-image: none !important;
+    height: 23px;
+    background-color: #09f !important;
+    border-radius: 3px;
+    margin-left: 6px;
+}
+div.monaco-editor .find-widget .replace {
+    width: 45%;
+}
+div.monaco-editor .find-widget .replace-all {
+    width: 55%;
+    margin-right: 2px;
+}
+div.monaco-editor .find-widget .replace:before {
+    content: "Replace";
+}
+div.monaco-editor .find-widget .replace-all:before {
+    content: "Replace All";
+}
+div.monaco-editor .find-widget .replace:before,
+div.monaco-editor .find-widget .replace-all:before {
+    position: relative;
+    color: white;
+    margin: 1px auto;
+}
+div.monaco-editor .find-widget .button.toggle.left:hover,
+div.monaco-editor .find-widget .button.previous:hover,
+div.monaco-editor .find-widget .button.next:hover,
+div.monaco-editor .find-widget .button.close-fw:hover {
+    background-color: transparent !important;
+}
+div.monaco-editor .button,
+div.monaco-editor .label,
+div.monaco-editor .monaco-custom-checkbox {
+    cursor: default !important;
+}
+
+div.monaco-editor .checkbox:checked + .label {
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"><path d="M6.5 7h7m-7 3h7m-7 3h7" fill="transparent" stroke="#09f" stroke-linecap="round"/></svg>') !important;
+    border: none !important;
+    border-radius: 2px;
+}
+div.monaco-editor.vs .checkbox:checked + .label {
+    background-color: #f2f2f2 !important;
+}
+div.monaco-editor .checkbox + .label:focus {
+    outline: none;
+}
+
+/* Find & Replace Icons */
+div.monaco-editor .find-widget .previous {
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"><path d="M12 7l-3 3 3 3" fill="transparent" stroke="#999" stroke-linecap="round"/></svg>') !important;
+}
+div.monaco-editor .find-widget .next {
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"><path d="M9 7l3 3-3 3" fill="transparent" stroke="#999" stroke-linecap="round"/></svg>') !important;
+}
+div.monaco-editor .find-widget .monaco-checkbox .label {
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"><path d="M6.5 7h7m-7 3h7m-7 3h7" fill="transparent" stroke="#999" stroke-linecap="round"/></svg>') !important;
+}
+div.monaco-editor .find-widget .close-fw {
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"><path d="M7 7l6 6m0-6l-6 6" fill="transparent" stroke="#999" stroke-linecap="round"/></svg>') !important;
+}
+div.monaco-editor .find-widget .collapse {
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="10" height="10"><path d="M 0 0 L 3.5 4 L 7 0 Z" transform="translate(1.5 3) rotate(-90 3.5 2)" fill="#999999"></path></svg>') !important;
+}
+div.monaco-editor .find-widget .expand {
+    background-image: url('data:image/svg+xml;utf8,<svg height="10" width="10" xmlns="http://www.w3.org/2000/svg"><path d="m1.5 3.75 3.5 4 3.5-4z" fill="#999"/></svg>') !important;
+}
+div.monaco-editor .monaco-case-sensitive {
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="11" height="11"><path d="M5.076 8.996l-.64-1.891H1.77l-.64 1.891H0L2.526 2H3.7l2.525 6.996zM3.088 3.164L2.046 6.232H4.16L3.118 3.164h-.03zm5.566 5.09c.732 0 1.304-.504 1.304-1.169v-.402l-1.256.078c-.625.043-.98.32-.98.756 0 .446.37.737.932.737zm-.292.829c-.998 0-1.696-.621-1.696-1.537 0-.892.684-1.44 1.896-1.508l1.396-.082v-.393c0-.567-.384-.907-1.023-.907-.606 0-.984.291-1.076.747H6.87c.058-.921.843-1.599 2.104-1.599 1.236 0 2.026.654 2.026 1.677v3.515H9.997v-.839h-.025c-.295.567-.94.926-1.609.926z" fill="#999"/></svg>') !important;
+}
+div.monaco-editor .monaco-case-sensitive.checked {
+    border: none;
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="11" height="11"><path d="M5.076 8.996l-.64-1.891H1.77l-.64 1.891H0L2.526 2H3.7l2.525 6.996zM3.088 3.164L2.046 6.232H4.16L3.118 3.164h-.03zm5.566 5.09c.732 0 1.304-.504 1.304-1.169v-.402l-1.256.078c-.625.043-.98.32-.98.756 0 .446.37.737.932.737zm-.292.829c-.998 0-1.696-.621-1.696-1.537 0-.892.684-1.44 1.896-1.508l1.396-.082v-.393c0-.567-.384-.907-1.023-.907-.606 0-.984.291-1.076.747H6.87c.058-.921.843-1.599 2.104-1.599 1.236 0 2.026.654 2.026 1.677v3.515H9.997v-.839h-.025c-.295.567-.94.926-1.609.926z" fill="#09f"/></svg>') !important;
+}
+div.monaco-editor .monaco-whole-word {
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="11" height="11"><path d="M0 0h11v1H0zm0 10h11v1H0zm5.076-1.004l-.64-1.891H1.77l-.64 1.891H0L2.526 2H3.7l2.525 6.996zM3.088 3.164L2.046 6.232H4.16L3.118 3.164h-.03zm5.566 5.09c.732 0 1.304-.504 1.304-1.169v-.402l-1.256.078c-.625.043-.98.32-.98.756 0 .446.37.737.932.737zm-.292.829c-.998 0-1.696-.621-1.696-1.537 0-.892.684-1.44 1.896-1.508l1.396-.082v-.393c0-.567-.384-.907-1.023-.907-.606 0-.984.291-1.076.747H6.87c.058-.921.843-1.599 2.104-1.599 1.236 0 2.026.654 2.026 1.677v3.515H9.997v-.839h-.025c-.295.567-.94.926-1.609.926z" fill="#999"/></svg>') !important;
+}
+div.monaco-editor .monaco-whole-word.checked {
+    border: none;
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="11" height="11"><path d="M0 0h11v1H0zm0 10h11v1H0zm5.076-1.004l-.64-1.891H1.77l-.64 1.891H0L2.526 2H3.7l2.525 6.996zM3.088 3.164L2.046 6.232H4.16L3.118 3.164h-.03zm5.566 5.09c.732 0 1.304-.504 1.304-1.169v-.402l-1.256.078c-.625.043-.98.32-.98.756 0 .446.37.737.932.737zm-.292.829c-.998 0-1.696-.621-1.696-1.537 0-.892.684-1.44 1.896-1.508l1.396-.082v-.393c0-.567-.384-.907-1.023-.907-.606 0-.984.291-1.076.747H6.87c.058-.921.843-1.599 2.104-1.599 1.236 0 2.026.654 2.026 1.677v3.515H9.997v-.839h-.025c-.295.567-.94.926-1.609.926z" fill="#09f"/></svg>') !important;
+}
+div.monaco-editor .monaco-regex {
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="11" height="11"><path d="M7.851 7.543l-1.86-1.217L6.14 8.5H4.851l.158-2.172-1.884 1.224L2.5 6.426l1.994-.923L2.5 4.57l.633-1.108 1.868 1.194L4.85 2.5h1.299l-.151 2.156 1.861-1.203.641 1.116-2.01.94 2.01.916z" fill="#999"/></svg>') !important;
+}
+div.monaco-editor .monaco-regex.checked {
+    border: none;
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="11" height="11"><path d="M7.851 7.543l-1.86-1.217L6.14 8.5H4.851l.158-2.172-1.884 1.224L2.5 6.426l1.994-.923L2.5 4.57l.633-1.108 1.868 1.194L4.85 2.5h1.299l-.151 2.156 1.861-1.203.641 1.116-2.01.94 2.01.916z" fill="#09f"/></svg>') !important;
+}
+
+/* Console */
+div.preview-console details summary {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+div.preview-console details summary[open] {
+    text-overflow: none;
+    overflow: visible;
+    white-space: pre-wrap;
+}
+div.preview-console details summary::-webkit-details-marker {
+    font-size: 7px;
+    margin: 0 6px 2px 0 !important;
+}
+div.preview-console div[data-method] div:nth-child(2) {
+    margin-left: 0;
+}
+div.preview-console a {
+    text-decoration: none;
+    color: #0bf;
+}
+div.preview-console div[data-type="table"] div:first-child {
+    border-radius: 5px;
+    overflow: hidden;
+}
+div.preview-console div[data-type="table"] {
+    margin: 5px 24px 5px 0;
+}
+div.preview-console table {
+    background-image: none !important;
+}
+div.preview-console table tr:nth-child(even) {
+    background-color: rgba(255, 255, 255, 0.04);
+}
+
+/* Text Selection Fixes */
+div.monaco-editor.vs .monaco-editor-hover ::selection {
+    background-color: #e5e5e5;
+}
+div.monaco-editor.vs-dark .monaco-editor-hover ::selection {
+    background-color: #444;
+}
+div.monaco-editor.vs .find-widget input::selection {
+    background-color: #e5e5e5;
+}
+div.monaco-editor.vs-dark .find-widget input::selection {
+    background-color: #444;
+}
+div.monaco-editor .find-widget * {
+    -webkit-user-select: none;
+    user-select: none;
+}
+div.monaco-editor.vs .find-widget input {
+    -webkit-user-select: text;
+    user-select: text;
+}
